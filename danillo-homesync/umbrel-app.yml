@@ -4,7 +4,7 @@ name: homesync
 tagline: Sincroniza as pastas dos seus aplicativos entre os seus computadores
 icon: https://raw.githubusercontent.com/danillo-ao/umbrel-store/main/danillo-homesync/icon.png
 category: files
-version: "0.2.1"
+version: "0.2.2"
 port: 8787
 description: >-
   Hub de sincronização na sua rede: os aplicativos compatíveis com o homesync (como o Arcanum)
@@ -22,7 +22,8 @@ repo: https://github.com/danillo-ao/homesync
 support: https://github.com/danillo-ao/homesync/issues
 gallery: []
 releaseNotes: >-
-  Ajustes no empacotamento do app para o Umbrel. Sem mudanças no funcionamento do servidor.
+  A página do servidor ganhou um botão "Baixar" em cada pasta sincronizada, que baixa a pasta inteira
+  em .zip. A página também passou a se atualizar sozinha sem piscar.
 dependencies: []
 path: ""
 defaultUsername: ""
