@@ -11,7 +11,7 @@ services:
       PROXY_AUTH_ADD: "false"
 
   server:
-    image: ghcr.io/danillo-ao/homesync-server:0.2.2
+    image: ghcr.io/danillo-ao/homesync-server:0.2.3@sha256:4f735471531d0dab527e4fe1e06eb494a2a0c70a39d69a2598c580c4423ef80c
     user: "1000:1000"
     init: true
     restart: on-failure
