@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      # <app-id>_<serviço>_1
+      APP_HOST: danillo-homesync_server_1
+      APP_PORT: 8787
+      # Os aplicativos falam direto com a API (com o token do pareamento), sem o login do Umbrel.
+      # A página do servidor pede a senha do app.
+      PROXY_AUTH_ADD: "false"
+
+  server:
+    image: ghcr.io/danillo-ao/homesync-server:0.2.0
+    user: "1000:1000"
+    init: true
+    restart: on-failure
+    environment:
+      HOMESYNC_DATA: /data
+      # Senha gerada pelo Umbrel para o app (deterministicPassword), mostrada na tela do app.
+      HOMESYNC_PASSWORD: ${APP_PASSWORD}
+      HOMESYNC_NAME: homesync
+    volumes:
+      # data/.gitkeep faz o Umbrel criar a pasta (dono 1000) na instalação; sem ela o Docker a
+      # cria como root e o servidor, que roda como 1000, não consegue gravar.
+      - ${APP_DATA_DIR}/data:/data

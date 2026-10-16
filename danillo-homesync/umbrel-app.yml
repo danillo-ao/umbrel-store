@@ -1,0 +1,30 @@
+manifestVersion: 1
+id: danillo-homesync
+name: homesync
+tagline: Sincroniza as pastas dos seus aplicativos entre os seus computadores
+icon: https://raw.githubusercontent.com/danillo-ao/umbrel-store/main/danillo-homesync/icon.png
+category: files
+version: "0.2.0"
+port: 8787
+description: >-
+  Hub de sincronização na sua rede: os aplicativos compatíveis com o homesync (como o Arcanum)
+  guardam aqui as pastas sincronizadas, e o servidor avisa os outros computadores quando algo muda.
+  Cada aplicativo só vê as próprias pastas.
+
+
+  Para conectar um aplicativo, informe nele o IP do Umbrel e a porta 8787 e peça acesso. Depois
+  abra este app no Umbrel (a senha é a mostrada na tela do app), confira o código e aprove.
+developer: Danillo
+website: https://github.com/danillo-ao/homesync
+submitter: Danillo
+submission: https://github.com/danillo-ao/umbrel-store
+repo: https://github.com/danillo-ao/homesync
+support: https://github.com/danillo-ao/homesync/issues
+gallery: []
+releaseNotes: >-
+  Vários aplicativos no mesmo servidor, cada um com as suas pastas, e acesso por pareamento
+  aprovado nesta página.
+dependencies: []
+path: ""
+defaultUsername: ""
+deterministicPassword: true
