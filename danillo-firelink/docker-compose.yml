@@ -1,0 +1,54 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      # <app-id>_<serviço>_1
+      APP_HOST: danillo-firelink_web_1
+      APP_PORT: 8789
+      # O painel fica atrás do login do Umbrel; a API (/api/v1) usa os tokens do firelink.
+      PROXY_AUTH_WHITELIST: "/api/v1/*"
+
+  # Daemon Docker só das stacks. Rede do host: as portas publicadas pelas stacks aparecem direto
+  # no IP do Umbrel. Faixas de rede próprias para não colidir com as do Umbrel.
+  docker:
+    image: docker:29-dind
+    privileged: true
+    network_mode: host
+    restart: on-failure
+    stop_grace_period: 1m
+    entrypoint: dockerd
+    command:
+      - --data-root=/data/docker
+      - --host=unix:///run/firelink/docker.sock
+      - --group=1000
+      - --pidfile=/run/firelink/dockerd.pid
+      - --bip=10.120.0.1/16
+      - --default-address-pool=base=10.121.0.0/16,size=24
+    volumes:
+      - ${APP_DATA_DIR}/data/docker:/data/docker
+      # Mesmo caminho no web e aqui: o compose resolve caminhos relativos no web, quem monta é o daemon.
+      - ${APP_DATA_DIR}/data/stacks:/firelink/stacks
+      - ${APP_DATA_DIR}/run:/run/firelink
+
+  web:
+    image: ghcr.io/danillo-ao/firelink-server:0.1.0
+    user: "1000:1000"
+    init: true
+    restart: on-failure
+    depends_on: [docker]
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      FIRELINK_DATA: /data
+      FIRELINK_STACKS: /firelink/stacks
+      DOCKER_HOST: unix:///run/firelink/docker.sock
+      FIRELINK_PUBLIC_HOST: ${DEVICE_DOMAIN_NAME}
+      FIRELINK_CHECK_HOST: host.docker.internal
+      FIRELINK_PORT_RANGE: 20000-20999
+    volumes:
+      # data/.gitkeep, data/stacks/.gitkeep e run/.gitkeep fazem o Umbrel criar as pastas (dono
+      # 1000) na instalação; sem elas o Docker as cria como root e o firelink não consegue gravar.
+      - ${APP_DATA_DIR}/data/firelink:/data
+      - ${APP_DATA_DIR}/data/stacks:/firelink/stacks
+      - ${APP_DATA_DIR}/run:/run/firelink

@@ -7,6 +7,7 @@ No Umbrel: App Store › ⋯ › Community App Stores › cole `https://github.c
 | App | Pasta | Código |
 |---|---|---|
 | homesync | [danillo-homesync](danillo-homesync) | [danillo-ao/homesync](https://github.com/danillo-ao/homesync) |
+| firelink | [danillo-firelink](danillo-firelink) | [danillo-ao/firelink](https://github.com/danillo-ao/firelink) |
 
 ## Estrutura
 
@@ -20,6 +21,9 @@ danillo-<app>/                # pasta = id do app
 ├── icon.png
 └── data/.gitkeep             # faz o Umbrel criar a pasta de dados (dono 1000) na instalação
 ```
+
+Cada `.gitkeep` vira uma pasta do app criada com dono 1000; o firelink usa várias (`data/docker`,
+`data/firelink`, `data/stacks` e `run`).
 
 ## Nova versão de um app
 
