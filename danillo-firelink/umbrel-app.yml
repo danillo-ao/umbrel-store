@@ -1,6 +1,6 @@
 manifestVersion: 1
 id: danillo-firelink
-name: firelink
+name: Firelink
 tagline: Instala e acompanha suas aplicações self-hosted (Supabase, n8n…)
 icon: https://raw.githubusercontent.com/danillo-ao/umbrel-store/main/danillo-firelink/icon.png
 category: developer
