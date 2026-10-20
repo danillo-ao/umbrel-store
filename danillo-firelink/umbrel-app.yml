@@ -27,8 +27,7 @@ repo: https://github.com/danillo-ao/firelink
 support: https://github.com/danillo-ao/firelink/issues
 gallery: []
 releaseNotes: >-
-  Primeira versão: modelos do Supabase, n8n, Uptime Kuma e PostgreSQL, compose próprio, status,
-  logs, credenciais, reconciliação automática e tokens da API.
+  - feat: firelink dashboard created
 dependencies: []
 path: ""
 defaultUsername: ""
