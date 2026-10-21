@@ -39,9 +39,13 @@ services:
         iptables -C FORWARD -j FIRELINK 2>/dev/null || iptables -I FORWARD -j FIRELINK
         iptables -t nat -A FIRELINK -s 10.120.0.0/15 ! -d 10.120.0.0/15 -j MASQUERADE
         iptables -t nat -C POSTROUTING -j FIRELINK 2>/dev/null || iptables -t nat -I POSTROUTING -j FIRELINK
-        dockerd --data-root=/data/docker --host=unix:///run/firelink/docker.sock --group=1000 \
-          --pidfile=/run/firelink/dockerd.pid --iptables=false --ip6tables=false --bridge=firelink0 \
-          --default-address-pool=base=10.121.0.0/16,size=24 --live-restore &
+        # Argumentos montados linha a linha, sem continuação com barra invertida: no Umbrel a
+        # continuação se perdeu e o dockerd subiu só com a 1ª linha, mexendo no iptables do host.
+        set -- --data-root=/data/docker --host=unix:///run/firelink/docker.sock --group=1000
+        set -- "$$@" --pidfile=/run/firelink/dockerd.pid --iptables=false --ip6tables=false
+        set -- "$$@" --bridge=firelink0 --default-address-pool=base=10.121.0.0/16,size=24
+        set -- "$$@" --live-restore
+        dockerd "$$@" &
         pid=$$!
         trap 'docker -H unix:///run/firelink/docker.sock ps -q | xargs -r docker -H unix:///run/firelink/docker.sock stop; kill $$pid' TERM INT
         wait $$pid || wait $$pid
