@@ -10,21 +10,41 @@ services:
       PROXY_AUTH_WHITELIST: "/api/v1/*"
 
   # Daemon Docker só das stacks. Rede do host: as portas publicadas pelas stacks aparecem direto
-  # no IP do Umbrel. Faixas de rede próprias para não colidir com as do Umbrel.
+  # no IP do Umbrel. Interfaces e iptables são os do Docker do Umbrel: um segundo dockerd recria as
+  # chains DOCKER-* sem as redes do Umbrel (os apps ficam sem internet) e apaga o docker0 ao
+  # reiniciar com --default-address-pool, a não ser com --live-restore. Por isso o daemon não mexe
+  # no iptables, usa a bridge firelink0 e a chain FIRELINK libera e mascara só as faixas dele:
+  # 10.120.0.0/16 (firelink0) e 10.121.0.0/16 (redes das stacks). Com --live-restore o dockerd sai
+  # sem parar os containers, então o script os para antes, como o dockerd faria.
   docker:
     image: docker:29-dind
     privileged: true
     network_mode: host
     restart: on-failure
     stop_grace_period: 1m
-    entrypoint: dockerd
+    init: true
+    entrypoint: ["/bin/sh", "-ec"]
     command:
-      - --data-root=/data/docker
-      - --host=unix:///run/firelink/docker.sock
-      - --group=1000
-      - --pidfile=/run/firelink/dockerd.pid
-      - --bip=10.120.0.1/16
-      - --default-address-pool=base=10.121.0.0/16,size=24
+      - |
+        # docker0 com o endereço que o firelink usava até a 0.1.1: sobra dele, não do Umbrel
+        if ip addr show docker0 2>/dev/null | grep -q 'inet 10.120.0.1/16'; then
+          ip link set docker0 down; brctl delbr docker0
+        fi
+        brctl addbr firelink0 2>/dev/null || true
+        ip addr add 10.120.0.1/16 dev firelink0 2>/dev/null || true
+        ip link set firelink0 up
+        for t in filter nat; do iptables -t $$t -N FIRELINK 2>/dev/null || iptables -t $$t -F FIRELINK; done
+        iptables -A FIRELINK -s 10.120.0.0/15 -j ACCEPT
+        iptables -A FIRELINK -d 10.120.0.0/15 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+        iptables -C FORWARD -j FIRELINK 2>/dev/null || iptables -I FORWARD -j FIRELINK
+        iptables -t nat -A FIRELINK -s 10.120.0.0/15 ! -d 10.120.0.0/15 -j MASQUERADE
+        iptables -t nat -C POSTROUTING -j FIRELINK 2>/dev/null || iptables -t nat -I POSTROUTING -j FIRELINK
+        dockerd --data-root=/data/docker --host=unix:///run/firelink/docker.sock --group=1000 \
+          --pidfile=/run/firelink/dockerd.pid --iptables=false --ip6tables=false --bridge=firelink0 \
+          --default-address-pool=base=10.121.0.0/16,size=24 --live-restore &
+        pid=$$!
+        trap 'docker -H unix:///run/firelink/docker.sock ps -q | xargs -r docker -H unix:///run/firelink/docker.sock stop; kill $$pid' TERM INT
+        wait $$pid || wait $$pid
     volumes:
       - ${APP_DATA_DIR}/data/docker:/data/docker
       # Mesmo caminho no web e aqui: o compose resolve caminhos relativos no web, quem monta é o daemon.
