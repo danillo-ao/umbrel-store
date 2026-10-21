@@ -4,7 +4,7 @@ name: Firelink
 tagline: Instala e acompanha suas aplicações self-hosted (Supabase, n8n…)
 icon: https://raw.githubusercontent.com/danillo-ao/umbrel-store/main/danillo-firelink/icon.png
 category: developer
-version: "0.1.4"
+version: "0.2.0"
 port: 8789
 description: >-
   Gerenciador de stacks Docker Compose no seu Umbrel: instala o Supabase, o n8n, o Uptime Kuma, um
@@ -27,7 +27,7 @@ repo: https://github.com/danillo-ao/firelink
 support: https://github.com/danillo-ao/firelink/issues
 gallery: []
 releaseNotes: >-
-  Corrige de vez a falta de internet dos apps do Umbrel (e o erro de conexão ao baixar o modelo do Supabase do GitHub): o Docker interno do firelink subia sem as opções que o impedem de mexer na rede do Umbrel. Depois de atualizar, reinicie o Umbrel uma vez.
+  Novo: crie uma stack a partir de comandos de terminal (git clone, ./install.sh…), como o Sentry self-hosted pede. Os comandos rodam num container com docker, git e bash, com variáveis de ambiente editáveis no painel; o compose que eles deixam vira uma stack como as outras, e dá para rodar os comandos de novo para atualizar. Corrige também o painel de volumes, que quebrava com muitos volumes.
 dependencies: []
 path: ""
 defaultUsername: ""
