@@ -4,7 +4,7 @@ name: Firelink
 tagline: Instala e acompanha suas aplicações self-hosted (Supabase, n8n…)
 icon: https://raw.githubusercontent.com/danillo-ao/umbrel-store/main/danillo-firelink/icon.png
 category: developer
-version: "0.2.3"
+version: "0.2.4"
 port: 8789
 description: >-
   Gerenciador de stacks Docker Compose no seu Umbrel: instala o Supabase, o n8n, o Uptime Kuma, um
@@ -27,7 +27,7 @@ repo: https://github.com/danillo-ao/firelink
 support: https://github.com/danillo-ao/firelink/issues
 gallery: []
 releaseNotes: >-
-  Novo botão Buscar atualizações na página da stack: baixa as versões novas das imagens, mostra no log quais serviços mudaram e recria só esses, sem mexer nos outros. Também disponível na API (POST /stacks/{id}/update) para tokens com permissão de operar.
+  O Cloudflare Tunnel ganhou um painel na porta da stack (antes dava 404): mostra se o túnel está conectado, as conexões e os locais da Cloudflare, as rotas publicadas, o tráfego e as respostas por código. As métricas do Prometheus continuam em /metrics na mesma porta. Stacks já instaladas mantêm o compose antigo; para ter o painel, reinstale a partir do modelo.
 dependencies: []
 path: ""
 defaultUsername: ""
