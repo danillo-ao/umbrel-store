@@ -56,7 +56,7 @@ services:
       - ${APP_DATA_DIR}/run:/run/firelink
 
   web:
-    image: ghcr.io/danillo-ao/firelink-server:0.2.5@sha256:a6dce700169a2b0aa8365ad31b9bf63e36a6fe6dd3d3151f2844e876c41db6b5
+    image: ghcr.io/danillo-ao/firelink-server:0.2.6@sha256:090cdbb5dac5edd93c8c5d10ef78ccbef9de429c46ff25ca1347414ea89beded
     user: "1000:1000"
     init: true
     restart: on-failure
