@@ -5,7 +5,7 @@ tagline: Backups automatizados das pastas dos seus computadores
 icon: https://raw.githubusercontent.com/danillo-ao/umbrel-store/main/danillo-bonfire/icon.png
 category: files
 # version e releaseNotes são reescritos pelo workflow release-server do repo bonfire
-version: "0.0.0"
+version: "0.1.0"
 port: 8790
 description: >-
   Guarda os backups (restic) enviados pelo app Bonfire Desktop e mostra todos eles num painel:
@@ -23,7 +23,11 @@ repo: https://github.com/danillo-ao/bonfire-releases
 support: https://github.com/danillo-ao/bonfire-releases/issues
 gallery: []
 releaseNotes: >-
+<<<<<<< HEAD
   Primeira versão.
+=======
+  - Initial commit: Bonfire server, desktop app, shared package and Umbrel packaging
+>>>>>>> 93b94c77ecc132c5a9d6e25cea57410aaec2635b
 dependencies: []
 path: ""
 defaultUsername: ""
