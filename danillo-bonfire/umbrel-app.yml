@@ -1,0 +1,30 @@
+manifestVersion: 1
+id: danillo-bonfire
+name: Bonfire
+tagline: Backups automatizados das pastas dos seus computadores
+icon: https://raw.githubusercontent.com/danillo-ao/umbrel-store/main/danillo-bonfire/icon.png
+category: files
+# version e releaseNotes são reescritos pelo workflow release-server do repo bonfire
+version: "0.0.0"
+port: 8790
+description: >-
+  Guarda os backups (restic) enviados pelo app Bonfire Desktop e mostra todos eles num painel:
+  máquinas pareadas, snapshots, download de arquivos, retenção e o local de armazenamento
+  (disco interno ou HD externo).
+
+
+  Para parear um computador, clique em "Adicionar máquina" no painel e cole o código no app
+  desktop. Os backups chegam pela porta 8791.
+developer: Danillo
+website: https://github.com/danillo-ao/bonfire-releases
+submitter: Danillo
+submission: https://github.com/danillo-ao/umbrel-store
+repo: https://github.com/danillo-ao/bonfire-releases
+support: https://github.com/danillo-ao/bonfire-releases/issues
+gallery: []
+releaseNotes: >-
+  Primeira versão.
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""

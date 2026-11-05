@@ -8,6 +8,7 @@ No Umbrel: App Store › ⋯ › Community App Stores › cole `https://github.c
 |---|---|---|
 | homesync | [danillo-homesync](danillo-homesync) | [danillo-ao/homesync](https://github.com/danillo-ao/homesync) |
 | firelink | [danillo-firelink](danillo-firelink) | [danillo-ao/firelink](https://github.com/danillo-ao/firelink) |
+| bonfire | [danillo-bonfire](danillo-bonfire) | [danillo-ao/bonfire-releases](https://github.com/danillo-ao/bonfire-releases) (publicado pelo workflow `release-server` do bonfire) |
 
 ## Estrutura
 
