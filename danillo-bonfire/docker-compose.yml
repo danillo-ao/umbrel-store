@@ -1,0 +1,46 @@
+version: "3.7"
+
+# Fonte do app danillo-bonfire da loja danillo-ao/umbrel-store. O workflow release-server copia
+# esta pasta para a loja e troca a linha da imagem do bonfire-server pela tag@digest publicada.
+
+services:
+  app_proxy:
+    environment:
+      # <app-id>_<serviço>_1
+      APP_HOST: danillo-bonfire_web_1
+      APP_PORT: 8790
+      # Painel atrás do login do Umbrel; o pareamento do desktop usa o código de uso único.
+      PROXY_AUTH_WHITELIST: "/api/agent/*"
+
+  web:
+    image: ghcr.io/danillo-ao/bonfire-server:0.1.0@sha256:889a67085053a5410b02a4747087b5bb142989bb54b5deb0ed2a7825777b0953
+    user: "1000:1000"
+    init: true
+    restart: on-failure
+    environment:
+      BONFIRE_DATA: /data
+      BONFIRE_PORT: 8790
+    volumes:
+      # Cada pasta tem .gitkeep para o Umbrel criá-la com dono 1000 na instalação.
+      - ${APP_DATA_DIR}/data:/data # SQLite + htpasswd
+      - ${APP_DATA_DIR}/repos:/storage/internal
+      - ${APP_DATA_DIR}/current:/storage/link # contém o symlink "current"
+      # HDs externos do umbrelOS 1.x: um ponto de montagem por disco, com dono root (ver docs/ARCHITECTURE.md).
+      - ${UMBREL_ROOT}/external:/storage/external
+
+  rest-server:
+    image: restic/rest-server:0.14.0
+    # Mesmo dono do web, senão o restic do painel não consegue apagar/prunar o que o rest-server gravou.
+    user: "1000:1000"
+    restart: on-failure
+    ports:
+      - "8791:8000"
+    environment:
+      DATA_DIRECTORY: /storage/link/current
+      PASSWORD_FILE: /data/htpasswd
+      OPTIONS: "--private-repos"
+    volumes:
+      - ${APP_DATA_DIR}/data:/data
+      - ${APP_DATA_DIR}/repos:/storage/internal
+      - ${APP_DATA_DIR}/current:/storage/link
+      - ${UMBREL_ROOT}/external:/storage/external
