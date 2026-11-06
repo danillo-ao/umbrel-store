@@ -13,7 +13,7 @@ services:
       PROXY_AUTH_WHITELIST: "/api/agent/*"
 
   web:
-    image: ghcr.io/danillo-ao/bonfire-server:0.1.0
+    image: ghcr.io/danillo-ao/bonfire-server:0.2.3@sha256:92ba29abb80a6f685c727e8badd67b55a0ffa87e7150a60556a36e1aaa26a415
     user: "1000:1000"
     init: true
     restart: on-failure
