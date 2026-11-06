@@ -5,7 +5,7 @@ tagline: Backups automatizados das pastas dos seus computadores
 icon: https://raw.githubusercontent.com/danillo-ao/umbrel-store/main/danillo-bonfire/icon.png
 category: files
 # version e releaseNotes são reescritos pelo workflow release-server do repo bonfire
-version: "0.2.2"
+version: "0.2.3"
 port: 8790
 description: >-
   Guarda os backups (restic) enviados pelo app Bonfire Desktop e mostra todos eles num painel:
@@ -23,11 +23,11 @@ repo: https://github.com/danillo-ao/bonfire-releases
 support: https://github.com/danillo-ao/bonfire-releases/issues
 gallery: []
 releaseNotes: >-
-  - Máquinas: as que precisam de atenção aparecem primeiro, com tamanho do último backup, até onde vai o histórico e erro em destaque
+  - A limpeza dos backups antigos agora roda logo depois de cada backup (e ao salvar uma nova regra), em vez de uma vez por semana
 
-  - Retenção: atalhos Enxuto, Equilibrado e Longo, ou personalizada, com prévia de quantos backups saem na próxima limpeza
+  - Retenção: novas opções "Últimos N backups", "Por hora" e "Anuais", combináveis com diários, semanais e mensais
 
-  - Backups: lista agrupada por dia, dados novos de cada backup, filtro por pasta e marcação dos que a limpeza vai apagar
+  - Novo ícone do Bonfire
 dependencies: []
 path: ""
 defaultUsername: ""
