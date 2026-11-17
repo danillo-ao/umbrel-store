@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- A loja como uma grade de apps: bonfire, firelink, homesync e um espaço para o próximo. -->
+  <defs>
+    <linearGradient id="plate" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#26272b"/>
+      <stop offset="1" stop-color="#111214"/>
+    </linearGradient>
+    <linearGradient id="fire" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffb02e"/>
+      <stop offset="1" stop-color="#f0481c"/>
+    </linearGradient>
+    <linearGradient id="ember" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff7a1a"/>
+      <stop offset="1" stop-color="#d42a1e"/>
+    </linearGradient>
+    <linearGradient id="sync" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4fb4ff"/>
+      <stop offset="1" stop-color="#1f6fe0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#plate)"/>
+  <rect x="11" y="11" width="19" height="19" rx="5" fill="url(#ember)"/>
+  <rect x="34" y="11" width="19" height="19" rx="5" fill="url(#fire)"/>
+  <rect x="11" y="34" width="19" height="19" rx="5" fill="url(#sync)"/>
+  <rect x="35" y="35" width="17" height="17" rx="4.5" fill="none" stroke="#5b5f67" stroke-width="2" stroke-dasharray="3.2 2.6"/>
+  <path d="M43.5 39.5v9M39 44h9" stroke="#9aa0a9" stroke-width="2.4" stroke-linecap="round"/>
+</svg>
