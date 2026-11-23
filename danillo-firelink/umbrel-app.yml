@@ -4,7 +4,7 @@ name: Firelink
 tagline: Instala e acompanha suas aplicações self-hosted (Supabase, n8n…)
 icon: https://raw.githubusercontent.com/danillo-ao/umbrel-store/main/danillo-firelink/icon.png
 category: developer
-version: "0.2.9"
+version: "0.2.10"
 port: 8789
 description: >-
   Gerenciador de stacks Docker Compose no seu Umbrel: instala o Supabase, o n8n, o Uptime Kuma, um
@@ -27,7 +27,7 @@ repo: https://github.com/danillo-ao/firelink
 support: https://github.com/danillo-ao/firelink/issues
 gallery: []
 releaseNotes: >-
-  Cinder: a stack mostra a versão escolhida em CINDER_VERSION; padrão agora 0.0.1.
+  Cinder: o card do modelo mostra a versão padrão (0.0.1) em vez da versão do modelo.
 dependencies: []
 path: ""
 defaultUsername: ""
